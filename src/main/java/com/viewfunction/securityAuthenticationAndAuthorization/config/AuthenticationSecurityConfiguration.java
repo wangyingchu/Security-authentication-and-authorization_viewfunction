@@ -32,14 +32,28 @@ public class AuthenticationSecurityConfiguration extends WebSecurityConfigurerAd
     @Value("${ldapBaseDn}")
     private String ldapBaseDn;
 
+    //Properties get from global configuration server
+    @Value("${inMemoryAuthenticationNormalUser}")
+    private String inMemoryAuthenticationNormalUser;
+    @Value("${inMemoryAuthenticationNormalUserPassword}")
+    private String inMemoryAuthenticationNormalUserPassword;
+    @Value("${inMemoryAuthenticationUserRole}")
+    private String inMemoryAuthenticationUserRole;
+    @Value("${inMemoryAuthenticationNormalAdmin}")
+    private String inMemoryAuthenticationNormalAdmin;
+    @Value("${inMemoryAuthenticationNormalAdminPassword}")
+    private String inMemoryAuthenticationNormalAdminPassword;
+    @Value("${inMemoryAuthenticationAdminRole}")
+    private String inMemoryAuthenticationAdminRole;
+
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
         //inMemoryAuthentication 和 ldapAuthentication 中设定的用户认证信息可同时生效
         //初始化逻辑........设定user 认证信息
         auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER")
+                .withUser(inMemoryAuthenticationNormalUser).password(inMemoryAuthenticationNormalUserPassword).roles(inMemoryAuthenticationUserRole)
                 .and()
-                .withUser("admin").password("password").roles("USER", "ADMIN");
+                .withUser(inMemoryAuthenticationNormalAdmin).password(inMemoryAuthenticationNormalAdminPassword).roles(inMemoryAuthenticationUserRole, inMemoryAuthenticationAdminRole);
 
         //初始化逻辑........设定 LDAP user 认证信息
         auth.ldapAuthentication()
