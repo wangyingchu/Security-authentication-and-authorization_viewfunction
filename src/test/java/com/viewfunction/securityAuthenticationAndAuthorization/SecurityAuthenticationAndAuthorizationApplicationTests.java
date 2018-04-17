@@ -21,10 +21,14 @@ public class SecurityAuthenticationAndAuthorizationApplicationTests {
 	@Test
 	public void testOAuthService() {
 		ResourceOwnerPasswordResourceDetails resource = new ResourceOwnerPasswordResourceDetails();
-        resource.setUsername("user");
-        resource.setPassword("password");
+		//for LDAP testing
+        //resource.setUsername("ansifan");
+        //resource.setPassword("ansifan");
+        //for In Memory testing
+		resource.setUsername("user");
+		resource.setPassword("password");
 
-        resource.setAccessTokenUri("http://localhost:12000/oauth/token");
+		resource.setAccessTokenUri("http://localhost:12000/oauth/token");
         resource.setClientId("client2");
         resource.setClientSecret("secret2");
         resource.setGrantType("password");
